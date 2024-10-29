@@ -3,7 +3,7 @@
     "declaration": true,
     "target": "es2017",
     "module": "commonjs",
-    "outDir": "./lib",
+    "outDir": "./app",
     "rootDir": "./src",
     "sourceMap": true,
     "incremental": true,
