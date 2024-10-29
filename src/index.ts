@@ -8,8 +8,6 @@ import * as restify from 'restify';
 
 import { INodeSocket } from 'botframework-streaming';
 
-// Import required bot services.
-// See https://aka.ms/bot-services to learn more about the different parts of a bot.
 import {
     CloudAdapter,
     ConfigurationServiceClientCredentialFactory,
@@ -39,8 +37,6 @@ const credentialsFactory = new ConfigurationServiceClientCredentialFactory({
 
 const botFrameworkAuthentication = createBotFrameworkAuthenticationFromConfiguration(null, credentialsFactory);
 
-// Create adapter.
-// See https://aka.ms/about-bot-adapter to learn more about adapters.
 const adapter = new CloudAdapter(botFrameworkAuthentication);
 
 // Catch-all for errors.
