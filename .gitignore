@@ -1,5 +1,6 @@
 node_modules
-lib
-lib.d
+lib/
+lib.d/
+app/
 .env
 .tsbuildinfo
