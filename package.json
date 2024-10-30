@@ -1,6 +1,6 @@
 {
     "name": "myjsbot",
-    "private" : true,
+    "private": true,
     "version": "1.0.0",
     "description": "Demonstrate the core capabilities of the Microsoft Bot Framework",
     "author": "Generated using Microsoft Bot Builder Yeoman generator v4.22.1",
@@ -9,11 +9,21 @@
     "scripts": {
         "build": "tsc --build",
         "postinstall": "npm run build"
+        "lint": "tslint -c tslint.json 'src/**/*.ts'",
+        "postinstall": "npm run build",
+        "start": "node ./lib/index.js",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "watch": "nodemon --watch ./src -e ts --exec \"npm run start\""
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com"
     },
     "dependencies": {
         "botbuilder": "~4.22.1",
+        "botbuilder": "^4.23.1",
         "replace": "~1.2.0",
-        "restify": "~11.1.0"
+        "restify": "^11.1.0"
     },
     "devDependencies": {
         "@types/restify": "8.4.2",
