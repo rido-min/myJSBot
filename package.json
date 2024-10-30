@@ -6,6 +6,7 @@
     "author": "Generated using Microsoft Bot Builder Yeoman generator v4.22.1",
     "license": "MIT",
     "main": "./app/index.js",
+    "type": "module",
     "scripts": {
         "build": "tsc --build",
         "lint": "tslint -c tslint.json 'src/**/*.ts'",
@@ -20,11 +21,11 @@
     },
     "dependencies": {
         "botbuilder": "^4.23.1",
-        "replace": "~1.2.0",
-        "restify": "^11.1.0"
+        "express": "^5.0.1"
     },
     "devDependencies": {
-        "@types/restify": "8.4.2",
+        "@types/express": "^5.0.0",
+        "@types/node": "^22.8.4",
         "typescript": "^5.6.3"
     }
 }

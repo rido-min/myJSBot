@@ -1,4 +1,4 @@
-import * as restify from 'restify';
+import express from 'express';
 import {
     CloudAdapter,
     ConfigurationServiceClientCredentialFactory,
@@ -7,11 +7,11 @@ import {
 
 import { EchoBot } from './bot';
 
-const server = restify.createServer();
-server.use(restify.plugins.bodyParser());
+const server = express()
+server.use(express.json());
 
 server.listen(process.env.port || process.env.PORT || 3978, () => {
-    console.log(`\n${server.name} listening to ${server.url}`);
+    console.log(`\n${server.name}`);
 });
 
 const credentialsFactory = new ConfigurationServiceClientCredentialFactory({
