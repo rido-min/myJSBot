@@ -1,8 +1,7 @@
 import express from 'express';
 import {
     CloudAdapter,
-    ConfigurationServiceClientCredentialFactory,
-    createBotFrameworkAuthenticationFromConfiguration
+    ConfigurationBotFrameworkAuthentication
 } from 'botbuilder';
 
 import { EchoBot } from './bot';
@@ -14,16 +13,16 @@ server.listen(process.env.port || process.env.PORT || 3978, () => {
     console.log(`\n${server.name}`);
 });
 
-const credentialsFactory = new ConfigurationServiceClientCredentialFactory({
-    MicrosoftAppId: process.env.MicrosoftAppId,
-    MicrosoftAppPassword: process.env.MicrosoftAppPassword,
-    MicrosoftAppType: process.env.MicrosoftAppType,
-    MicrosoftAppTenantId: process.env.MicrosoftAppTenantId
-});
+// const credentialsFactory = new ConfigurationServiceClientCredentialFactory({
+//     MicrosoftAppId: process.env.MicrosoftAppId,
+//     MicrosoftAppPassword: process.env.MicrosoftAppPassword,
+//     MicrosoftAppType: process.env.MicrosoftAppType,
+//     MicrosoftAppTenantId: process.env.MicrosoftAppTenantId
+// });
 
-const botFrameworkAuthentication = createBotFrameworkAuthenticationFromConfiguration(null, credentialsFactory);
+// const botFrameworkAuthentication = ConfigurationBotFrameworkAuthentication
 
-const adapter = new CloudAdapter(botFrameworkAuthentication);
+const adapter = new CloudAdapter( new ConfigurationBotFrameworkAuthentication() );
 
 // Catch-all for errors.
 const onTurnErrorHandler = async (context, error) => {
