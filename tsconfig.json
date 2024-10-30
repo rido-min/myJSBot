@@ -4,6 +4,8 @@
     "target": "es2017",
     "module": "commonjs",
     "outDir": "./app",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
     "rootDir": "./src",
     "sourceMap": true,
     "incremental": true,
