@@ -2,7 +2,7 @@ import express from 'express';
 import {
     CloudAdapter,
     ConfigurationBotFrameworkAuthentication
-} from  'botbuilder';
+} from  './botfx/botBase.js';
 
 import { EchoBot } from './bot.js';
 

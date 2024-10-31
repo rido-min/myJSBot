@@ -1,6 +1,6 @@
-import { ActivityHandler, BotHandler, MessageFactory, TurnContext } from 'botbuilder';
+//import { ActivityHandler, BotHandler, MessageFactory, TurnContext } from 'botbuilder';
 
-//import {botBase, TurnContext, MessageFactory} from './botfx/botBase.js'
+import {ActivityHandler, TurnContext, MessageFactory} from './botfx/botBase.js'
 
 export class EchoBot extends ActivityHandler {
     constructor() {
