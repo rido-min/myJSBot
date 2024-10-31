@@ -2,15 +2,17 @@ import express from 'express';
 import {
     CloudAdapter,
     ConfigurationBotFrameworkAuthentication
-} from 'botbuilder';
+} from  'botbuilder';
 
-import { EchoBot } from './bot';
+import { EchoBot } from './bot.js';
 
 const server = express()
 server.use(express.json());
 
-server.listen(process.env.port || process.env.PORT || 3978, () => {
-    console.log(`\n${server.name}`);
+const port = process.env.port || process.env.PORT || 3978
+
+server.listen(port, () => {
+    console.log(`\n${server.name} on ${port}`);
 });
 
 // const credentialsFactory = new ConfigurationServiceClientCredentialFactory({
@@ -40,5 +42,6 @@ const onTurnErrorHandler = async (context, error) => {
 adapter.onTurnError = onTurnErrorHandler;
 const myBot = new EchoBot();
 server.post('/api/messages', async (req, res) => {
+    console.log(req.body);
     await adapter.process(req, res, context => myBot.run(context));
 });

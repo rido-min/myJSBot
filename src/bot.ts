@@ -1,15 +1,17 @@
-import { ActivityHandler, MessageFactory } from 'botbuilder';
+import { ActivityHandler, BotHandler, MessageFactory, TurnContext } from 'botbuilder';
+
+//import {botBase, TurnContext, MessageFactory} from './botfx/botBase.js'
 
 export class EchoBot extends ActivityHandler {
     constructor() {
         super();
-        this.onMessage(async (context, next) => {
+        this.onMessage(async (context : TurnContext, next : () => Promise<void>) => {
             const replyText = `Echo: ${ context.activity.text }`;
             await context.sendActivity(MessageFactory.text(replyText, replyText));
             await next();
         });
 
-        this.onMembersAdded(async (context, next) => {
+        this.onMembersAdded(async (context: TurnContext, next: () => Promise<void>) => {
             const membersAdded = context.activity.membersAdded;
             const welcomeText = 'Hello and welcome from myJSBot!';
             if (membersAdded) {
