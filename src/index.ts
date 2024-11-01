@@ -41,7 +41,7 @@ const onTurnErrorHandler = async (context, error) => {
 
 adapter.onTurnError = onTurnErrorHandler;
 const myBot = new EchoBot();
-server.post('/api/messages', async (req, res) => {
-    console.log(req.body);
+server.post('/api/messages', async (req : express.Request, res: express.Response) => {
+    console.log(typeof req.body);
     await adapter.process(req, res, context => myBot.run(context));
 });

@@ -98,7 +98,7 @@ export class CloudAdapter {
     }
 
     public async process(req, res, logic: (context: TurnContext) => Promise<void>) : Promise<void> {
-        const activity: Activity = JSON.parse(req.body);
+        const activity: Activity = req.body;
         const ctx = this.createTurnContext(activity, logic);
         await logic(ctx);
     }
@@ -120,7 +120,7 @@ export class ActivityHandler
     async onTurnActivity(context: TurnContext): Promise<void> {
         switch (context.activity.type) {
             case ActivityTypes.Message:
-                await this.onMessageActivity(context);
+                await this.onMessageActivity(context => this.onMessage(context));
                 break;
             default:
                 await this.onUnrecognizedActivity(context);
@@ -128,18 +128,14 @@ export class ActivityHandler
         }
     }
 
-    async onMessageActivity(context: TurnContext): Promise<void> {
-        await this.onMessage(async () => {});
+    protected async onMessage(handler: BotHandler): Promise<void> {
     }
 
-    public onMessage(h: BotHandler)
-    {
-
+    protected async onMembersAdded(context: TurnContext): Promise<void> {
     }
 
-    public onMembersAdded(h : BotHandler)
-    {
-
+    async onMessageActivity(handler: BotHandler): Promise<void> {
+        await this.onMessage(context);
     }
 
     public onUnrecognizedActivity(context: TurnContext): Promise<void> {

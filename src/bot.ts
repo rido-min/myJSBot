@@ -5,7 +5,7 @@ import {ActivityHandler, TurnContext, MessageFactory} from './botfx/botBase.js'
 export class EchoBot extends ActivityHandler {
     constructor() {
         super();
-        this.onMessage(async (context : TurnContext, next : () => Promise<void>) => {
+        this.onMessage(async (context : TurnContext) => Promise<void>) => {
             const replyText = `Echo: ${ context.activity.text }`;
             await context.sendActivity(MessageFactory.text(replyText, replyText));
             await next();
