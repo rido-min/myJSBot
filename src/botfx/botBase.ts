@@ -18,7 +18,7 @@ export class TurnContext
 
     static getConversationReference(activity: Partial<Activity>): Partial<ConversationReference> {
         return {
-            activityId: activity.source.id, //getAppropriateReplyToId(activity)
+            activityId: activity.id, //getAppropriateReplyToId(activity)
             user: activity.from, // shallowCopy(activity.from),
             bot: activity.recipient, // shallowCopy(activity.recipient),
             conversation:activity.conversation, // shallowCopy(activity.conversation),
@@ -32,6 +32,7 @@ export class TurnContext
         activity.locale ??= reference.locale;
         activity.serviceUrl = reference.serviceUrl;
         activity.conversation = reference.conversation;
+        activity.id = reference.activityId;
         if (isIncoming) {
             activity.from = reference.user;
             activity.recipient = reference.bot;
@@ -49,21 +50,24 @@ export class TurnContext
         return activity;
     }
 
-    async sendActicvities(activities: Activity[]): Promise<void> {
-        const ref = TurnContext.getConversationReference(this.activity);
-        activities.map(a => {
-            const result = TurnContext.applyConversationReference(a, ref);
-            return result;
-        })
+    // async sendActicvities(activities: Activity[]): Promise<void> {
+    //     const ref = TurnContext.getConversationReference(this.activity);
+    //     activities.map(a => {
+    //         const result = TurnContext.applyConversationReference(a, ref);
+    //         return result;
+    //     })
         
-    }
+    // }
 
-    public async sendActivity(activity: Partial<Activity>): Promise<void> {
-        await fetch(this.activity.serviceUrl, {
+    public async sendActivity(act: Partial<Activity>): Promise<void> {
+        var actToSend = TurnContext.applyConversationReference(act, TurnContext.getConversationReference(this.activity));
+        const path = `${actToSend.serviceUrl}/v3/conversations/${actToSend.conversation.id}/activities/${actToSend.id}`;
+        const response = await fetch(path, {
             method: 'POST',
-            body: JSON.stringify(activity),
+            body: JSON.stringify(actToSend),
             headers: { 'Content-Type': 'application/json' } 
         })
+        console.log(response);
     }
 }
 
