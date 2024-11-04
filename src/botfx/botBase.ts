@@ -117,10 +117,59 @@ export class MessageFactory
 
 export class ActivityHandler
 {
+    protected readonly handlers: { [type: string]: BotHandler[] } = {};
+
+    protected defaultNextEvent(context: TurnContext): () => Promise<void> {
+        const run = async() : Promise<void> => {}
+        return run;
+    }
+
+    protected async handle(context: TurnContext, type: string, onNext: () => Promise<void>): Promise<any> {
+        let returnValue: any = null;
+
+        async function runHandler(index: number): Promise<void> {
+            if (index < handlers.length) {
+                const val = await handlers[index](context, () => runHandler(index + 1));
+                // if a value is returned, and we have not yet set the return value,
+                // capture it.  This is used to allow InvokeResponses to be returned.
+                if (typeof val !== 'undefined' && returnValue === null) {
+                    returnValue = val;
+                }
+            } else {
+                const val = await onNext();
+                if (typeof val !== 'undefined') {
+                    returnValue = val;
+                }
+            }
+        }
+
+        const handlers = this.handlers[type] || [];
+        await runHandler(0);
+
+        return returnValue;
+    }
+
+    protected on(type: string, handler: BotHandler) {
+        if (!this.handlers[type]) {
+            this.handlers[type] = [handler];
+        } else {
+            this.handlers[type].push(handler);
+        }
+        return this;
+    }
+
+    onTurn(handler: BotHandler): this {
+        return this.on('Turn', handler);
+    }
+
+    onMessage(handler: BotHandler): this {
+        return this.on('Message', handler);
+    }
+
     async onTurnActivity(context: TurnContext): Promise<void> {
         switch (context.activity.type) {
             case ActivityTypes.Message:
-                await this.onMessageActivity(context => this.onMessage(context));
+                await this.onMessageActivity(context);
                 break;
             default:
                 await this.onUnrecognizedActivity(context);
@@ -128,14 +177,12 @@ export class ActivityHandler
         }
     }
 
-    protected async onMessage(handler: BotHandler): Promise<void> {
+    onMembersAdded(handler: BotHandler): this {
+        return this.on('MembersAdded', handler);
     }
 
-    protected async onMembersAdded(context: TurnContext): Promise<void> {
-    }
-
-    async onMessageActivity(handler: BotHandler): Promise<void> {
-        await this.onMessage(context);
+    async onMessageActivity(context: TurnContext): Promise<void> {
+        await this.handle(context, 'Message', this.defaultNextEvent(context));
     }
 
     public onUnrecognizedActivity(context: TurnContext): Promise<void> {

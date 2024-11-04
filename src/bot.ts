@@ -5,7 +5,7 @@ import {ActivityHandler, TurnContext, MessageFactory} from './botfx/botBase.js'
 export class EchoBot extends ActivityHandler {
     constructor() {
         super();
-        this.onMessage(async (context : TurnContext) => Promise<void>) => {
+        this.onMessage(async (context : TurnContext, next: () => Promise<void>) => {
             const replyText = `Echo: ${ context.activity.text }`;
             await context.sendActivity(MessageFactory.text(replyText, replyText));
             await next();
@@ -13,7 +13,7 @@ export class EchoBot extends ActivityHandler {
 
         this.onMembersAdded(async (context: TurnContext, next: () => Promise<void>) => {
             const membersAdded = context.activity.membersAdded;
-            const welcomeText = 'Hello and welcome from myJSBot!';
+            const welcomeText = 'Hello and welcome from myJSBot with botFx!';
             if (membersAdded) {
                 for (const member of membersAdded) {
                     if (member.id !== context.activity.recipient.id) {
