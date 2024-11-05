@@ -1,0 +1,37 @@
+{
+    "channelData": {
+      "clientActivityID": "173074514398673kkou07w6r"
+    },
+    "text": "aa",
+    "textFormat": "plain",
+    "type": "message",
+    "channelId": "emulator",
+    "from": {
+      "id": "27346c45-5e78-44ae-8a53-a9067b395dde",
+      "name": "User",
+      "role": "user"
+    },
+    "locale": "en-US",
+    "localTimestamp": "2024-11-04T10:32:24-08:00",
+    "localTimezone": "America/Los_Angeles",
+    "attachments": [],
+    "entities": [
+      {
+        "requiresBotState": true,
+        "supportsListening": true,
+        "supportsTts": true,
+        "type": "ClientCapabilities"
+      }
+    ],
+    "conversation": {
+      "id": "1e087200-9adb-11ef-b440-6d3464b119db|livechat"
+    },
+    "id": "228e4840-9adb-11ef-b440-6d3464b119db",
+    "recipient": {
+      "id": "1e07d5c0-9adb-11ef-97cc-e96d496639f1",
+      "name": "Bot",
+      "role": "bot"
+    },
+    "timestamp": "2024-11-04T18:32:24.004Z",
+    "serviceUrl": "http://localhost:64446"
+  }

@@ -4,6 +4,35 @@ export interface ResourceResponse {
 
 export enum ActivityTypes {
     Message = 'message',
+    ContactRelationUpdate = 'contactRelationUpdate',
+    ConversationUpdate = 'conversationUpdate',
+    Typing = 'typing',
+    EndOfConversation = 'endOfConversation',
+    Event = 'event',
+    Invoke = 'invoke',
+    InvokeResponse = 'invokeResponse',
+    DeleteUserData = 'deleteUserData',
+    MessageUpdate = 'messageUpdate',
+    MessageDelete = 'messageDelete',
+    InstallationUpdate = 'installationUpdate',
+    MessageReaction = 'messageReaction',
+    Suggestion = 'suggestion',
+    Trace = 'trace',
+    Handoff = 'handoff',
+    Command = 'command',
+    CommandResult = 'commandResult',
+}
+
+export enum Channels {
+    Alexa = 'alexa',
+    Console = 'console',
+    Directline = 'directline',
+    DirectlineSpeech = 'directlinespeech',
+    Email = 'email',
+    Emulator = 'emulator',
+    Facebook = 'facebook',
+    Groupme = 'groupme',
+    Webchat = 'webchat',
 }
 
 export class Activity

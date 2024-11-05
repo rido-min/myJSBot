@@ -1,10 +1,31 @@
 
-import { Activity, ConversationReference, ActivityTypes, ResourceResponse } from "./activity.js";
+import { Activity, ConversationReference, ActivityTypes, ResourceResponse, Channels } from "./activity.js";
 
 export type BotHandler = (context: TurnContext, next: () => Promise<void>) => Promise<void>;
 
 export class ConfigurationBotFrameworkAuthentication {}
 
+function getAppropriateReplyToId(source: Partial<Activity>): string | undefined {
+    if (
+        source.type !== ActivityTypes.ConversationUpdate ||
+        (source.channelId !== Channels.Directline && source.channelId !== Channels.Webchat)
+    ) {
+        return source.id;
+    }
+
+    return undefined;
+}
+
+function shallowCopy<T>(value: T): T {
+    if (Array.isArray(value)) {
+        return value.slice(0) as any;
+    }
+    if (typeof value === 'object') {
+        return { ...(value as any) };
+    }
+
+    return value;
+}
 
 export class TurnContext
 {
@@ -16,23 +37,25 @@ export class TurnContext
         this.activity = activity;
     }
 
+    
+
     static getConversationReference(activity: Partial<Activity>): Partial<ConversationReference> {
         return {
-            activityId: activity.id, //getAppropriateReplyToId(activity)
-            user: activity.from, // shallowCopy(activity.from),
-            bot: activity.recipient, // shallowCopy(activity.recipient),
-            conversation:activity.conversation, // shallowCopy(activity.conversation),
+            activityId: getAppropriateReplyToId(activity),
+            user: shallowCopy(activity.from),
+            bot: shallowCopy(activity.recipient),
+            conversation: shallowCopy(activity.conversation),
             channelId: activity.channelId,
             locale: activity.locale,
             serviceUrl: activity.serviceUrl,
         };
     }
+    
     static applyConversationReference(activity: Partial<Activity>,reference: Partial<ConversationReference>,isIncoming = false): Partial<Activity> {
         activity.channelId = reference.channelId;
         activity.locale ??= reference.locale;
         activity.serviceUrl = reference.serviceUrl;
         activity.conversation = reference.conversation;
-        activity.id = reference.activityId;
         if (isIncoming) {
             activity.from = reference.user;
             activity.recipient = reference.bot;
@@ -61,7 +84,8 @@ export class TurnContext
 
     public async sendActivity(act: Partial<Activity>): Promise<void> {
         var actToSend = TurnContext.applyConversationReference(act, TurnContext.getConversationReference(this.activity));
-        const path = `${actToSend.serviceUrl}/v3/conversations/${actToSend.conversation.id}/activities/${actToSend.id}`;
+        const path = `${actToSend.serviceUrl}/v3/conversations/${this.activity.conversation.id}/activities/${this.activity.id}`;
+        console.log(path, actToSend);
         const response = await fetch(path, {
             method: 'POST',
             body: JSON.stringify(actToSend),

@@ -1,0 +1,27 @@
+{
+    "type": "message",
+    "serviceUrl": "http://localhost:64446",
+    "channelId": "emulator",
+    "from": {
+      "id": "9cab6e60-9b34-11ef-97cc-e96d496639f1",
+      "name": "Bot",
+      "role": "bot"
+    },
+    "conversation": {
+      "id": "b6a18ca1-9b34-11ef-97cc-e96d496639f1|livechat"
+    },
+    "recipient": {
+      "id": "3ed01189-11b5-49e7-8836-038e260e9f74",
+      "role": "user"
+    },
+    "locale": "en-US",
+    "text": "Echo: user message",
+    "speak": "Echo: user message",
+    "inputHint": "acceptingInput",
+    "attachments": [],
+    "entities": [],
+    "replyToId": "bd329c30-9b34-11ef-b440-6d3464b119db",
+    "id": "bd46e780-9b34-11ef-b440-6d3464b119db",
+    "localTimestamp": "2024-11-04T21:13:48-08:00",
+    "timestamp": "2024-11-05T05:13:48.792Z"
+  }

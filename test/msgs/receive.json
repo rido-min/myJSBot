@@ -1,0 +1,106 @@
+{
+    "type": "message",
+    "serviceUrl": "http://localhost:64446",
+    "channelId": "emulator",
+    "from": {
+      "id": "1e07d5c0-9adb-11ef-97cc-e96d496639f1",
+      "name": "Bot",
+      "role": "bot"
+    },
+    "conversation": {
+      "id": "1e087200-9adb-11ef-b440-6d3464b119db|livechat"
+    },
+    "recipient": {
+      "id": "27346c45-5e78-44ae-8a53-a9067b395dde",
+      "role": "user"
+    },
+    "attachmentLayout": "list",
+    "locale": "en-US",
+    "inputHint": "acceptingInput",
+    "attachments": [
+      {
+        "contentType": "application/vnd.microsoft.card.hero",
+        "content": {
+          "title": "Dialog (referred as task modules in TeamsJS v1.x) Invocation from Hero Card",
+          "buttons": [
+            {
+              "type": "invoke",
+              "title": "Adaptive Card",
+              "value": {
+                "type": "task/fetch",
+                "data": "AdaptiveCard"
+              }
+            },
+            {
+              "type": "invoke",
+              "title": "Custom Form",
+              "value": {
+                "type": "task/fetch",
+                "data": "CustomForm"
+              }
+            },
+            {
+              "type": "invoke",
+              "title": "YouTube",
+              "value": {
+                "type": "task/fetch",
+                "data": "YouTube"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "contentType": "application/vnd.microsoft.card.adaptive",
+        "content": {
+          "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+          "version": "1.0",
+          "type": "AdaptiveCard",
+          "body": [
+            {
+              "type": "TextBlock",
+              "text": "Dialog (referred as task modules in TeamsJS v1.x) Invocation from Adaptive Card",
+              "weight": "bolder",
+              "size": 3
+            }
+          ],
+          "actions": [
+            {
+              "type": "Action.Submit",
+              "title": "Adaptive Card",
+              "data": {
+                "msteams": {
+                  "type": "task/fetch"
+                },
+                "data": "AdaptiveCard"
+              }
+            },
+            {
+              "type": "Action.Submit",
+              "title": "Custom Form",
+              "data": {
+                "msteams": {
+                  "type": "task/fetch"
+                },
+                "data": "CustomForm"
+              }
+            },
+            {
+              "type": "Action.Submit",
+              "title": "YouTube",
+              "data": {
+                "msteams": {
+                  "type": "task/fetch"
+                },
+                "data": "YouTube"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "replyToId": "228e4840-9adb-11ef-b440-6d3464b119db",
+    "id": "23266990-9adb-11ef-b440-6d3464b119db",
+    "localTimestamp": "2024-11-04T10:32:25-08:00",
+    "timestamp": "2024-11-04T18:32:25.001Z"
+  }
